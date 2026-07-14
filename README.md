@@ -1,41 +1,116 @@
-# 📈 Nifty50 Data Engine
+<p align="center">
+  <img src="images/banner.png" width="100%" alt="Nifty50 Data Engine Banner">
+</p>
 
-> Production-ready NIFTY50 Stock Market Data Engineering Pipeline built with Python.
+<h1 align="center">📈 Nifty50 Data Engine</h1>
 
-![Python](https://img.shields.io/badge/Python-3.10-blue)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-green)
-![SQLite](https://img.shields.io/badge/SQLite-Database-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+<p align="center">
+Production-Ready End-to-End <b>NIFTY50 Stock Market Data Engineering Pipeline</b>
+</p>
+
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
+![Pandas](https://img.shields.io/badge/Pandas-2.x-green?style=for-the-badge&logo=pandas)
+![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite)
+![Pytest](https://img.shields.io/badge/Pytest-Tested-success?style=for-the-badge&logo=pytest)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+</p>
 
 ---
 
-# 🚀 Project Overview
+# 🚀 Overview
 
-Nifty50 Data Engine is a complete stock market data pipeline that automatically:
+Nifty50 Data Engine is a **production-ready stock market data pipeline** built with Python.
 
-- Downloads historical NIFTY50 stock data
-- Cleans and validates data
-- Stores data in SQLite
-- Generates technical indicators
-- Creates ML-ready datasets
-- Exports CSV & Parquet files
+It automates the complete workflow of downloading, validating, cleaning, storing and transforming historical NIFTY50 stock data into **machine learning-ready datasets**.
+
+The project follows a modular architecture inspired by real-world Data Engineering practices.
+
+---
+
+# 📊 Project Statistics
+
+| Metric | Value |
+|---------|------:|
+| Stocks Covered | 50 |
+| Historical Data | 2000 – Present |
+| Dataset Size | 285,000+ Rows |
+| Database | SQLite |
+| Export Formats | CSV + Parquet |
+| Technical Indicators | 10+ |
+| Testing Framework | Pytest |
+| CLI Support | ✅ |
+
+---
+
+# 🏗 Architecture
+
+```text
+                 Yahoo Finance
+                       │
+                       ▼
+              Stock Downloader
+                       │
+                       ▼
+               CSV File Generator
+                       │
+                       ▼
+                  Data Merger
+                       │
+                       ▼
+                SQLite Database
+                       │
+                       ▼
+                 Data Validator
+                       │
+                       ▼
+             Feature Engineering
+                       │
+          ┌────────────┴────────────┐
+          ▼                         ▼
+
+     features.csv          features.parquet
+```
 
 ---
 
 # ✨ Features
 
-✅ Historical Data Downloader (2000–2026)
+## 📥 Data Collection
 
-✅ Automatic Data Merge
+- Download historical NIFTY50 stock data
+- Automatic retry mechanism
+- Progress tracking
+- Multi-stock support
 
-✅ SQLite Database
+---
 
-✅ Data Validation
+## 🧹 Data Processing
 
-✅ Technical Indicators
+- Merge all stock datasets
+- Duplicate detection
+- Missing value validation
+- Price validation
+- Volume validation
 
-- SMA (20,50,100,200)
-- EMA (20,50,200)
+---
+
+## 💾 Storage
+
+- SQLite Database
+- CSV Export
+- Parquet Export
+
+---
+
+## 📈 Feature Engineering
+
+The pipeline automatically generates:
+
+- SMA (20, 50, 100, 200)
+- EMA (20, 50, 200)
 - RSI (14)
 - MACD
 - Bollinger Bands
@@ -43,11 +118,16 @@ Nifty50 Data Engine is a complete stock market data pipeline that automatically:
 - Daily Return
 - Log Return
 
-✅ CSV Export
+---
 
-✅ Parquet Export
+## 🧪 Software Engineering
 
-✅ Command Line Interface
+- Modular Project Structure
+- Command Line Interface (CLI)
+- Logging
+- Unit Testing (Pytest)
+- GitHub Actions Ready
+- Clean Code Architecture
 
 ---
 
@@ -56,26 +136,31 @@ Nifty50 Data Engine is a complete stock market data pipeline that automatically:
 ```text
 Nifty50-Data-Engine/
 │
+├── .github/
+│   └── workflows/
+│
 ├── config/
 ├── scraper/
 ├── database_manager/
 ├── features/
 ├── ml/
-├── utils/
-├── reports/
-├── logs/
-├── models/
 ├── tests/
+├── utils/
 │
 ├── data/
+│   ├── metadata/
 │   ├── raw/
-│   ├── processed/
-│   └── metadata/
+│   └── processed/
+│
+├── images/
+├── notebooks/
 │
 ├── main.py
 ├── requirements.txt
 ├── README.md
-└── LICENSE
+├── LICENSE
+├── CHANGELOG.md
+└── .gitignore
 ```
 
 ---
@@ -85,10 +170,10 @@ Nifty50-Data-Engine/
 Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Nifty50-Data-Engine.git
+git clone https://github.com/aamir-analyst/Nifty50-Data-Engine.git
 ```
 
-Go to project
+Go into the project
 
 ```bash
 cd Nifty50-Data-Engine
@@ -108,6 +193,12 @@ Windows
 venv\Scripts\activate
 ```
 
+Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
 Install dependencies
 
 ```bash
@@ -118,31 +209,31 @@ python -m pip install -r requirements.txt
 
 # ▶️ Usage
 
-Run complete pipeline
+Run the complete pipeline
 
 ```bash
 python main.py --all
 ```
 
-Download only
+Download data
 
 ```bash
 python main.py --download
 ```
 
-Merge only
+Merge datasets
 
 ```bash
 python main.py --merge
 ```
 
-Validate only
+Validate dataset
 
 ```bash
 python main.py --validate
 ```
 
-Generate Features
+Generate features
 
 ```bash
 python main.py --features
@@ -150,39 +241,31 @@ python main.py --features
 
 ---
 
-# 📊 Output
+# 🧪 Run Tests
 
-Generated files
+```bash
+pytest
+```
 
-```text
-data/
+Coverage
 
-raw/
-merged/
-
-processed/
-features.csv
-features.parquet
-
-database/
-nifty.db
+```bash
+pytest --cov=.
 ```
 
 ---
 
-# 📈 Feature Engineering
+# 📈 Technical Indicators
 
-The project generates:
-
-| Indicator | Description |
-|------------|-------------|
-| SMA | Trend |
-| EMA | Fast Trend |
+| Indicator | Purpose |
+|------------|----------|
+| SMA | Trend Analysis |
+| EMA | Short-Term Trend |
 | RSI | Momentum |
 | MACD | Trend + Momentum |
 | Bollinger Bands | Volatility |
 | ATR | Average True Range |
-| Daily Return | Daily Change |
+| Daily Return | Daily Performance |
 | Log Return | Quantitative Finance |
 
 ---
@@ -197,59 +280,88 @@ The project generates:
 - TA
 - PyArrow
 - Rich
+- Pytest
 
 ---
 
 # 📌 Roadmap
 
-### ✅ Version 2.0
+## ✅ Version 2.0
 
-- Downloader
-- Merger
-- SQLite
-- Validator
+- Historical Downloader
+- Data Merger
+- SQLite Database
+- Data Validator
 
-### ✅ Version 2.2
+---
+
+## ✅ Version 2.2
 
 - Feature Engineering
 - CLI
+- CSV Export
 - Parquet Export
+- Unit Testing
+- GitHub Repository
 
-### 🚀 Upcoming
+---
 
-- ML Pipeline
+## 🚀 Version 2.3
+
+- Docker Support
+- HTML Reports
+- Rich Terminal Dashboard
+
+---
+
+## 🚀 Version 3.0
+
+- ML Dataset
+- Random Forest
 - XGBoost
 - LightGBM
-- Random Forest
 - LSTM
-- Transformer
-- Streamlit Dashboard
+- Transformer Models
+
+---
+
+## 🚀 Version 4.0
+
 - FastAPI
-- Docker
-- CI/CD
+- Streamlit Dashboard
+- Live Market Updates
+- Portfolio Analytics
 
 ---
 
 # 🤝 Contributing
 
-Pull requests are welcome.
+Contributions are welcome.
 
-For major changes, please open an issue first.
+If you find a bug or have an idea for improvement, feel free to open an Issue or submit a Pull Request.
 
 ---
 
 # 📄 License
 
-MIT License
+This project is licensed under the **MIT License**.
 
 ---
 
 # 👨‍💻 Author
 
-**Aamir**
+## Aamir
 
-Data Science & AI Student
+**B.Sc. Data Science & Artificial Intelligence**
+
+GitHub:
+
+https://github.com/aamir-analyst
 
 ---
 
-⭐ If you found this project useful, don't forget to star the repository.
+<p align="center">
+
+⭐ If you found this project useful, please consider giving it a Star.
+
+</p>
