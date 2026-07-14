@@ -53,7 +53,9 @@ MERGED_FILE = MERGED_DIR / "all_stocks.csv"
 
 FEATURE_CSV = PROCESSED_DIR / "features.csv"
 FEATURE_PARQUET = PROCESSED_DIR / "features.parquet"
+CLEAN_DATA_FILE = PROCESSED_DIR / "clean_data.csv"
 
+ML_DATASET = PROCESSED_DIR / "ml_dataset.csv"
 DATABASE_FILE = DATABASE_DIR / "nifty.db"
 
 VALIDATION_REPORT = REPORT_DIR / "validation_report.txt"
