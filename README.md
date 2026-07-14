@@ -1,6 +1,6 @@
 # 📈 Nifty50 Data Engine
 
-> A production-ready end-to-end **NIFTY 50 Stock Market Data Engineering Pipeline** built with Python.
+> Production-ready NIFTY50 Stock Market Data Engineering Pipeline built with Python.
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-green)
