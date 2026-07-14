@@ -11,7 +11,7 @@ from config.config import (
 )
 
 from utils.helpers import read_symbols
-from utils.logger import logger
+from utils.logger import download_logger as logger
 
 
 class StockDownloader:

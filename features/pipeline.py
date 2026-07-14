@@ -1,5 +1,5 @@
 import pandas as pd
-
+from utils.logger import feature_logger as logger
 from config.config import (
     MERGED_FILE,
     FEATURE_CSV,

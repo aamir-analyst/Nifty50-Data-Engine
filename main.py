@@ -1,48 +1,39 @@
 import argparse
+import sys
 
 from scraper.downloader import StockDownloader
 from scraper.merger import DataMerger
 from scraper.validator import DataValidator
 
 from database_manager.sqlite_manager import SQLiteManager
-
 from features.pipeline import FeaturePipeline
 
-
-# ==========================================================
-# DOWNLOAD
-# ==========================================================
-
-def run_download():
-
-    downloader = StockDownloader()
-    downloader.run()
+from utils.logger import pipeline_logger as logger
 
 
-# ==========================================================
-# MERGE
-# ==========================================================
-
-def run_merge():
-
-    merger = DataMerger()
-    merger.merge()
+def banner():
+    print("=" * 70)
+    print("📈 NIFTY50 DATA ENGINE v2.3")
+    print("=" * 70)
 
 
-# ==========================================================
-# DATABASE
-# ==========================================================
+def download():
+    logger.info("Downloading stock data...")
+    StockDownloader().run()
 
-def run_database():
+
+def merge():
+    logger.info("Merging stock files...")
+    DataMerger().merge()
+
+
+def database():
+    logger.info("Creating SQLite database...")
 
     db = SQLiteManager()
-
     db.create_database()
 
-    print("\n✅ Database Ready!")
-
     print("\nDatabase Preview\n")
-
     print(
         db.query(
             """
@@ -56,60 +47,60 @@ def run_database():
     db.close()
 
 
-# ==========================================================
-# VALIDATION
-# ==========================================================
-
-def run_validation():
-
-    validator = DataValidator()
-
-    validator.run()
+def validate():
+    logger.info("Validating dataset...")
+    DataValidator().run()
 
 
-# ==========================================================
-# FEATURE ENGINEERING
-# ==========================================================
-
-def run_features():
-
-    pipeline = FeaturePipeline()
-
-    feature_df = pipeline.run()
-
-    print("\nFeature Preview\n")
-
-    print(feature_df.head(10))
+def features():
+    logger.info("Generating technical indicators...")
+    FeaturePipeline().run()
 
 
-# ==========================================================
-# COMPLETE PIPELINE
-# ==========================================================
+def reports():
 
+    import pandas as pd
+
+    from config.config import PROCESSED_DIR
+    from reports.report_generator import ReportGenerator
+
+    print("=" * 70)
+    print("REPORT GENERATION")
+    print("=" * 70)
+
+    df = pd.read_csv(
+        PROCESSED_DIR / "features.csv"
+    )
+
+    report = ReportGenerator()
+
+    report.validation_report(df)
+
+    report.feature_report(df)
+
+    print("\n✅ All Reports Generated Successfully")
 def run_all():
 
-    print("=" * 70)
-    print("NIFTY50 DATA ENGINE")
-    print("=" * 70)
+    banner()
 
-    run_download()
+    download()
 
-    run_merge()
+    merge()
 
-    run_database()
+    database()
 
-    run_validation()
+    validate()
 
-    run_features()
+    features()
+
+    reports()
 
     print("\n" + "=" * 70)
     print("🎉 COMPLETE DATA PIPELINE FINISHED")
     print("=" * 70)
 
+    logger.info("Pipeline completed successfully.")
 
-# ==========================================================
-# CLI
-# ==========================================================
 
 def main():
 
@@ -117,64 +108,40 @@ def main():
         description="Nifty50 Data Engine"
     )
 
-    parser.add_argument(
-        "--download",
-        action="store_true",
-        help="Download Stock Data"
-    )
-
-    parser.add_argument(
-        "--merge",
-        action="store_true",
-        help="Merge Stock CSV Files"
-    )
-
-    parser.add_argument(
-        "--database",
-        action="store_true",
-        help="Create SQLite Database"
-    )
-
-    parser.add_argument(
-        "--validate",
-        action="store_true",
-        help="Validate Dataset"
-    )
-
-    parser.add_argument(
-        "--features",
-        action="store_true",
-        help="Generate Technical Indicators"
-    )
-
-    parser.add_argument(
-        "--all",
-        action="store_true",
-        help="Run Complete Pipeline"
-    )
+    parser.add_argument("--all", action="store_true")
+    parser.add_argument("--download", action="store_true")
+    parser.add_argument("--merge", action="store_true")
+    parser.add_argument("--database", action="store_true")
+    parser.add_argument("--validate", action="store_true")
+    parser.add_argument("--features", action="store_true")
+    parser.add_argument("--report", action="store_true")
 
     args = parser.parse_args()
 
-    if args.download:
-        run_download()
+    if len(sys.argv) == 1:
+        parser.print_help()
+        return
 
-    elif args.merge:
-        run_merge()
-
-    elif args.database:
-        run_database()
-
-    elif args.validate:
-        run_validation()
-
-    elif args.features:
-        run_features()
-
-    elif args.all:
+    if args.all:
         run_all()
 
-    else:
-        parser.print_help()
+    if args.download:
+        download()
+
+    if args.merge:
+        merge()
+
+    if args.database:
+        database()
+
+    if args.validate:
+        validate()
+
+    if args.features:
+        features()
+
+    if args.report:
+        reports()
 
 
 if __name__ == "__main__":

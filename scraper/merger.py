@@ -2,8 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 from config.config import RAW_STOCK_DIR, MERGED_DIR
-from utils.logger import logger
-
+from utils.logger import pipeline_logger as logger
 
 class DataMerger:
 
