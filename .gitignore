@@ -104,3 +104,17 @@ htmlcov/
 # ==================================================
 
 *.parquet
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# ML Models (optional)
+*.pkl
+*.joblib
+
+# VS Code Settings (optional)
+.history/

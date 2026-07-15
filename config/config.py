@@ -59,7 +59,13 @@ ML_DATASET = PROCESSED_DIR / "ml_dataset.csv"
 DATABASE_FILE = DATABASE_DIR / "nifty.db"
 
 VALIDATION_REPORT = REPORT_DIR / "validation_report.txt"
+EVALUATION_DIR = REPORT_DIR / "evaluation"
 
+EVALUATION_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
+PREDICTION_REPORT = REPORT_DIR / "market_predictions.csv"
 # ==========================================================
 # DOWNLOAD SETTINGS
 # ==========================================================

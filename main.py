@@ -1,6 +1,8 @@
 import argparse
 import sys
-
+from ml.trainer import ModelTrainer
+from ml.evaluator import ModelEvaluator
+from ml.predictor import StockPredictor
 from scraper.downloader import StockDownloader
 from scraper.merger import DataMerger
 from scraper.validator import DataValidator
@@ -56,6 +58,26 @@ def features():
     logger.info("Generating technical indicators...")
     FeaturePipeline().run()
 
+def train():
+
+    logger.info("Training Machine Learning model...")
+
+    ModelTrainer().run()
+
+
+def evaluate():
+
+    logger.info("Evaluating trained model...")
+
+    ModelEvaluator().run()
+
+
+def predict():
+
+    logger.info("Running stock prediction...")
+
+    StockPredictor().run()
+
 
 def reports():
 
@@ -93,6 +115,12 @@ def run_all():
 
     features()
 
+    train()
+
+    evaluate()
+
+    predict()
+
     reports()
 
     print("\n" + "=" * 70)
@@ -115,6 +143,9 @@ def main():
     parser.add_argument("--validate", action="store_true")
     parser.add_argument("--features", action="store_true")
     parser.add_argument("--report", action="store_true")
+    parser.add_argument("--train", action="store_true")
+    parser.add_argument("--evaluate", action="store_true")
+    parser.add_argument("--predict", action="store_true")
 
     args = parser.parse_args()
 
@@ -142,7 +173,15 @@ def main():
 
     if args.report:
         reports()
+    
+    if args.train:
+      train()
 
+    if args.evaluate:
+     evaluate()
+
+    if args.predict:
+      predict()
 
 if __name__ == "__main__":
     main()
